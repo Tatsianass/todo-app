@@ -200,7 +200,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
               />
               <div style={{ display: "flex", gap: 8 }}>
                 <button style={styles.cancelBtn} onClick={resetForm}>
-                  Отмена
+                  Cancel
                 </button>
                 <button
                   style={{ ...styles.confirmBtn, background: quadrant.color }}
