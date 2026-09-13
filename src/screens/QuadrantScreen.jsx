@@ -162,7 +162,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
                         style={styles.menuItemNeutral}
                         onClick={() => startEdit(t)}
                       >
-                        Редактировать
+                        Edit
                       </div>
                       <div
                         style={styles.menuItem}
@@ -171,7 +171,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
                           setOpenMenuId(null);
                         }}
                       >
-                        Удалить
+                        Delete
                       </div>
                     </div>
                   )}
@@ -206,7 +206,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
                   style={{ ...styles.confirmBtn, background: quadrant.color }}
                   onClick={handleSave}
                 >
-                  {editingId ? "Изменить" : "Сохранить"}
+                  {editingId ? "Edit" : "Save"}
                 </button>
               </div>
             </div>
@@ -215,7 +215,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
               style={{ ...styles.addBtn, background: quadrant.bgSoft, color: quadrant.text }}
               onClick={() => setShowForm(true)}
             >
-              <i className="ti ti-plus" style={{ fontSize: 16 }} /> Добавить задачу
+              <i className="ti ti-plus" style={{ fontSize: 16 }} /> Add Task
             </button>
           )}
         </div>
