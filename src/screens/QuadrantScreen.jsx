@@ -9,13 +9,14 @@ const FILTERS = [
   { id: "week", label: "На неделе" },
 ];
 
-export default function QuadrantScreen({ tasks, addTask, toggleTask, deleteTask }) {
+export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, deleteTask }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const quadrant = getQuadrant(id);
 
   const [filter, setFilter] = useState("all");
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -40,12 +41,31 @@ export default function QuadrantScreen({ tasks, addTask, toggleTask, deleteTask 
     week: withMeta.filter((t) => t.meta.bucket === "week").length,
   };
 
-  function handleAdd() {
+  function handleSave() {
     const trimmed = title.trim();
     if (!trimmed) return;
-    addTask({ title: trimmed, quadrant: quadrant.id, dueDate: dueDate || null });
+
+    if (editingId) {
+      editTask(editingId, { title: trimmed, dueDate: dueDate || null });
+    } else {
+      addTask({ title: trimmed, quadrant: quadrant.id, dueDate: dueDate || null });
+    }
+
+    resetForm();
+  }
+
+  function startEdit(task) {
+    setEditingId(task.id);
+    setTitle(task.title);
+    setDueDate(task.dueDate || "");
+    setShowForm(true);
+    setOpenMenuId(null);
+  }
+
+  function resetForm() {
     setTitle("");
     setDueDate("");
+    setEditingId(null);
     setShowForm(false);
   }
 
@@ -139,6 +159,12 @@ export default function QuadrantScreen({ tasks, addTask, toggleTask, deleteTask 
                   {openMenuId === t.id && (
                     <div style={styles.menu}>
                       <div
+                        style={styles.menuItemNeutral}
+                        onClick={() => startEdit(t)}
+                      >
+                        Редактировать
+                      </div>
+                      <div
                         style={styles.menuItem}
                         onClick={() => {
                           deleteTask(t.id);
@@ -164,7 +190,7 @@ export default function QuadrantScreen({ tasks, addTask, toggleTask, deleteTask 
                 placeholder="Название задачи"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+                onKeyDown={(e) => e.key === "Enter" && handleSave()}
               />
               <input
                 type="date"
@@ -173,14 +199,14 @@ export default function QuadrantScreen({ tasks, addTask, toggleTask, deleteTask 
                 onChange={(e) => setDueDate(e.target.value)}
               />
               <div style={{ display: "flex", gap: 8 }}>
-                <button style={styles.cancelBtn} onClick={() => setShowForm(false)}>
+                <button style={styles.cancelBtn} onClick={resetForm}>
                   Отмена
                 </button>
                 <button
                   style={{ ...styles.confirmBtn, background: quadrant.color }}
-                  onClick={handleAdd}
+                  onClick={handleSave}
                 >
-                  Сохранить
+                  {editingId ? "Изменить" : "Сохранить"}
                 </button>
               </div>
             </div>
@@ -263,6 +289,7 @@ const styles = {
     minWidth: 100,
   },
   menuItem: { padding: "8px 12px", fontSize: 13, color: "#D85A30", cursor: "pointer" },
+  menuItemNeutral: { padding: "8px 12px", fontSize: 13, color: "#2A2A28", cursor: "pointer", borderBottom: "1px solid #F1EFE8" },
   empty: { fontSize: 13, color: "#999", textAlign: "center", padding: "24px 0" },
   footer: { padding: "8px 16px 20px" },
   addBtn: {

@@ -37,6 +37,12 @@ export function useTasks() {
     );
   }
 
+  function editTask(id, updates) {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, ...updates } : t))
+    );
+  }
+
   function deleteTask(id) {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   }
@@ -45,5 +51,5 @@ export function useTasks() {
     return tasks.filter((t) => t.quadrant === quadrantId).length;
   }
 
-  return { tasks, addTask, toggleTask, deleteTask, countByQuadrant };
+  return { tasks, addTask, editTask, toggleTask, deleteTask, countByQuadrant };
 }

@@ -4,7 +4,7 @@ import HomeScreen from "./screens/HomeScreen";
 import QuadrantScreen from "./screens/QuadrantScreen";
 
 export default function App() {
-  const { tasks, addTask, toggleTask, deleteTask, countByQuadrant } = useTasks();
+  const { tasks, addTask, editTask, toggleTask, deleteTask, countByQuadrant } = useTasks();
 
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ export default function App() {
             <QuadrantScreen
               tasks={tasks}
               addTask={addTask}
+              editTask={editTask}
               toggleTask={toggleTask}
               deleteTask={deleteTask}
             />
