@@ -4,9 +4,9 @@ import { getQuadrant } from "../data/quadrants";
 import { classifyDueDate } from "../utils/dueDate";
 
 const FILTERS = [
-  { id: "all", label: "Все" },
-  { id: "today", label: "Сегодня" },
-  { id: "week", label: "На неделе" },
+  { id: "all", label: "All" },
+  { id: "today", label: "Today" },
+  { id: "week", label: "This Week" },
 ];
 
 export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, deleteTask }) {
@@ -111,7 +111,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
 
           <div style={styles.list}>
             {filtered.length === 0 && (
-              <p style={styles.empty}>Ничего нет в этой категории.</p>
+              <p style={styles.empty}>No tasks in this category.</p>
             )}
             {filtered.map((t) => (
               <div key={t.id} style={styles.item}>
@@ -187,7 +187,7 @@ export default function QuadrantScreen({ tasks, addTask, editTask, toggleTask, d
               <input
                 autoFocus
                 style={styles.input}
-                placeholder="Название задачи"
+                placeholder="Task title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSave()}

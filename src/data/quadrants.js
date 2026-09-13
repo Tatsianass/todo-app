@@ -1,8 +1,8 @@
 export const QUADRANTS = [
   {
     id: "urgent-important",
-    label: "Важно и срочно",
-    subtitle: "Сделай это сейчас",
+    label: "Important and Urgent",
+    subtitle: "Do it now",
     color: "#D85A30",
     bgSoft: "#F4CDC0",
     bgCard: "#FAECE7",
@@ -11,8 +11,8 @@ export const QUADRANTS = [
   },
   {
     id: "important",
-    label: "Важно, не срочно",
-    subtitle: "Запланируй время на это",
+    label: "Important, not urgent",
+    subtitle: "Plan time for this",
     color: "#534AB7",
     bgSoft: "#D9D6F7",
     bgCard: "#EEEDFE",
@@ -21,8 +21,8 @@ export const QUADRANTS = [
   },
   {
     id: "urgent",
-    label: "Срочно, не важно",
-    subtitle: "Делегируй или сделай быстро",
+    label: "Urgent, not important",
+    subtitle: "Delegate or do quickly",
     color: "#B8860B",
     bgSoft: "#F1DFA8",
     bgCard: "#FBF3DA",
@@ -31,8 +31,8 @@ export const QUADRANTS = [
   },
   {
     id: "neither",
-    label: "Не важно, не срочно",
-    subtitle: "Отложи или удали",
+    label: "Neither important nor urgent",
+    subtitle: "Defer or delete",
     color: "#4A6FA5",
     bgSoft: "#CBDBF0",
     bgCard: "#E7EFF9",

@@ -7,7 +7,7 @@ export default function HomeScreen({ countByQuadrant }) {
   return (
     <div style={styles.page}>
       <div style={styles.card} className="home-card">
-        <p style={styles.title}>Мои задачи</p>
+        <p style={styles.title}>My Tasks</p>
 
         <div className="home-grid">
           {QUADRANTS.map((q) => (
@@ -21,7 +21,7 @@ export default function HomeScreen({ countByQuadrant }) {
               </div>
               <p style={{ ...styles.tileLabel, color: q.text }}>{q.label}</p>
               <p style={{ ...styles.tileCount, color: q.text }}>
-                {countByQuadrant(q.id)} задач
+                {countByQuadrant(q.id)} task{countByQuadrant(q.id) !== 1 ? "s" : ""}
               </p>
             </button>
           ))}
