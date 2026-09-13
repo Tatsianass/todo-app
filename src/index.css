@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Мобильный экран (по умолчанию): сетка 2x2, карточка на ширину экрана */
+.home-card {
+  max-width: 420px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.quadrant-card {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Планшет и выше: карточка чуть шире, отступы посвободнее */
+@media (min-width: 640px) {
+  .home-card {
+    max-width: 640px;
+  }
+
+  .quadrant-card {
+    max-width: 640px;
+    min-height: auto;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+}
+
+/* Десктоп: все 4 квадранта в один ряд */
+@media (min-width: 900px) {
+  .home-card {
+    max-width: 960px;
+  }
+
+  .home-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
