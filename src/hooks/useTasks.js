@@ -1,22 +1,36 @@
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "todo-matrix-tasks";
+const LEGACY_STORAGE_KEY = "todo-matrix-tasks";
 
-function loadTasks() {
+function storageKey(userId) {
+  return `${LEGACY_STORAGE_KEY}:${userId}`;
+}
+
+function loadTasks(userId) {
+  if (!userId) return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const raw = localStorage.getItem(storageKey(userId));
+    if (raw) return JSON.parse(raw);
+
+    const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (legacy) {
+      localStorage.setItem(storageKey(userId), legacy);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      return JSON.parse(legacy);
+    }
+    return [];
   } catch {
     return [];
   }
 }
 
-export function useTasks() {
-  const [tasks, setTasks] = useState(loadTasks);
+export function useTasks(userId) {
+  const [tasks, setTasks] = useState(() => loadTasks(userId));
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }, [tasks]);
+    if (!userId) return;
+    localStorage.setItem(storageKey(userId), JSON.stringify(tasks));
+  }, [tasks, userId]);
 
   function addTask({ title, quadrant, dueDate }) {
     setTasks((prev) => [

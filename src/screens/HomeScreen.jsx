@@ -1,13 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { QUADRANTS } from "../data/quadrants";
 
-export default function HomeScreen({ countByQuadrant }) {
+export default function HomeScreen({ countByQuadrant, user, onLogout }) {
   const navigate = useNavigate();
 
   return (
     <div style={styles.page}>
       <div style={styles.card} className="home-card">
-        <p style={styles.title}>My Tasks</p>
+        <div style={styles.headerRow}>
+          <div>
+            <p style={styles.title}>My Tasks</p>
+            <p style={styles.userName}>{user.name}</p>
+          </div>
+          <button type="button" style={styles.logout} onClick={onLogout}>
+            Log out
+          </button>
+        </div>
 
         <div className="home-grid">
           {QUADRANTS.map((q) => (
@@ -43,11 +51,33 @@ const styles = {
   card: {
     width: "100%",
   },
+  headerRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    margin: "8px 0 16px",
+    gap: 12,
+  },
   title: {
     fontSize: 20,
     fontWeight: 600,
-    margin: "8px 0 16px",
+    margin: 0,
     color: "#2A2A28",
+  },
+  userName: {
+    margin: "4px 0 0",
+    fontSize: 13,
+    color: "#8A887F",
+  },
+  logout: {
+    border: "1px solid #E5E3DA",
+    background: "#fff",
+    borderRadius: 8,
+    padding: "8px 12px",
+    fontSize: 12,
+    cursor: "pointer",
+    color: "#2A2A28",
+    flexShrink: 0,
   },
   grid: {
     display: "grid",
